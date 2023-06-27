@@ -17,6 +17,10 @@ const float BOUNCE_FACTOR = 0.7f; // Adjust this value to control the bounce int
 const int NUMOFPOINTS = 1000;
 const int MAX_SIZE_RAFTS = 8;
 const sf::Vector2f RAFT_SIZE = { 40, 10 };
+const sf::Vector2f RAFTMAN_SIZE = { 30,60 };
+const sf::Vector2f USER_POSITION = { 220, 400 };
+const sf::Vector2f COMPUTER_POSITION = { BACKGROUND_SIZE.x - WINDOW_SIZE.x / 2 ,400 };
+const unsigned int EXPLOSION_FACTOR = 600;
 
 enum Menu {TENNIS, GRENADE, MISSILE, GUIDED_MISSILE, UP_RAFT, DOWN_RAFT, NON};
 

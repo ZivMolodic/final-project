@@ -3,6 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include "Button.h"
 
+// Represents the main menu of the game.
+// Manages the menu loop and contains buttons, background, and volume controls.
 class MainMenu {
 public:
 	MainMenu();

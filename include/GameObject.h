@@ -6,10 +6,11 @@
 
 using namespace sf;
 
+// Represents a game object with a specified size, position, and text.
+// Provides common functionality such as drawing, updating, and collision detection.
 class GameObject
 {
 public:
-	//GameObject() {};
 	GameObject(const sf::Vector2f& size, const sf::Vector2f& position, const std::string& str);
 	GameObject(float radius, const sf::Vector2f& position, const std::string& str);
 	virtual ~GameObject() = default;
@@ -19,7 +20,7 @@ public:
 	virtual void draw(RenderWindow* window, const sf::Vector2f& position = sf::Vector2f()) const = 0;
 	virtual void update() = 0;
 	void setDead() { m_dead = true; }
-	bool isDead() { return m_dead; }
+	virtual bool isDead() { return m_dead; }
 	virtual sf::FloatRect getRec() const { return m_shape->getGlobalBounds(); };
 
 	void setBlendMode() { m_shape->setFillColor(sf::Color(255, 255, 255, 128)); }
@@ -30,6 +31,8 @@ private:
 };
 
 
+// Represents a dynamic game object with additional properties like bounce and weight.
+// Implements update and collision handling specific to dynamic objects
 class DynamicObject : public GameObject
 {
 public:

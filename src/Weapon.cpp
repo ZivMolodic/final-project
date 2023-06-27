@@ -76,12 +76,5 @@ void Weapon::drawAim(sf::RenderWindow* window, float angle, const sf::Vector2f& 
 
 		for (const auto& dot : dots)
 			window->draw(dot);
-		//while (potentialPosition.y < BACKGROUND_SIZE.y && potentialPosition.x < BACKGROUND_SIZE.x)
-		//for (int i = 0; i < 1000; ++i)
-		//{
-		//	time += 1;
-		//	if (rec.getRec().getGlobalBounds().contains(sf::Vector2f(position.x + velocityX * time, position.y + velocityY * time + 25.f * GRAVITY * time * time)))
-		//		this->shot(velocity * 0.06f);
-		//}
 	}
 }

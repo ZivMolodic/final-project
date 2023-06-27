@@ -1,6 +1,7 @@
 #include "GamePlay.h"
 #include "Resources.h"
 #include "Macros.h"
+#include "Board.h"
 #include <SFML/audio.hpp>
 
 
@@ -20,7 +21,7 @@ GamePlay::GamePlay(bool play)
 
 void GamePlay::gameLoop(RenderWindow* window)
 {
-    auto board = Board(Vector2f{ 220, 400 }, Vector2f{ BACKGROUND_SIZE.x - WINDOW_SIZE.x/2 ,400 }, 4);
+    auto board = Board(USER_POSITION, COMPUTER_POSITION, 4);
 
     bool playerTurn = true;
 
@@ -30,7 +31,7 @@ void GamePlay::gameLoop(RenderWindow* window)
 
     window->setFramerateLimit(60);
 
-    //openShot(window, board);
+    openShot(window, board);
 
     sf::Clock turnTimer;
 
@@ -41,7 +42,6 @@ void GamePlay::gameLoop(RenderWindow* window)
         window->clear();
         window->setView(view);
         window->draw(m_backGround);
-        //drawTime(timeAsSeconds-turnTimer.getElapsedTime().asSeconds(), *window);
         //update
         board.update();
         board.handleCollisions();
@@ -81,13 +81,6 @@ void GamePlay::gameLoop(RenderWindow* window)
             }
             }
         }
-
-        //if (turnTimer.getElapsedTime().asSeconds() >= timeAsSeconds)
-        //{
-        //    playerTurn = !playerTurn;
-        //    turnTimer.restart();
-        //}
-
 
         board.play(window, event);
 

@@ -27,6 +27,6 @@ void RaftBlock::update()
 void RaftBlock::handleExplosion(const Explosion& explosion)
 {
 	auto vec = this->getPosition() - explosion.getPosition();
-	m_durability -= 500 / std::sqrtf(vec.x * vec.x + vec.y * vec.y);
+	m_durability -= EXPLOSION_FACTOR / std::sqrtf(vec.x * vec.x + vec.y * vec.y);
 }
 

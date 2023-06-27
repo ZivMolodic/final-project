@@ -5,7 +5,9 @@
 
 using namespace sf;
 
-
+// Represents the behavior of an object in terms of physics properties.
+// Manages velocity, bouncing, gravity, walking, jumping, rotation, and collision handling.
+// Provides functions for updating and managing collisions based on specific behavior implementations.
 class PhysicsBehavior
 {
 public:

@@ -7,6 +7,9 @@
 #include "RaftBlock.h"
 #include "GameObject.h"
 
+// Represents a weapon in the game.
+// Manages the size, firing status, shooting, updating, drawing, handling collisions, and explosions of the weapon.
+// Provides functions for shooting projectiles, obtaining the current objectile, getting the objectile position, and rotating the weapo
 class Weapon: public DynamicObject
 {
 public:
@@ -37,7 +40,7 @@ public:
 private:
 	std::shared_ptr<Objectile> createObjectile(const sf::Vector2f& launchPosition, const sf::Vector2f& destination) override
 	{
-		Resources::instance().playMusic(Sounds::SHOOT);
+		Resources::instance().playMusic(Sounds::SHOOT, 30);
 		// Create a GrenadeObject specific to GrenadeLauncher
 		return std::make_shared<Grenade>(launchPosition, destination);
 	}

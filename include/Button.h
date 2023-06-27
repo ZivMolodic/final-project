@@ -9,6 +9,9 @@
 using namespace sf;
 using namespace std;
 
+
+// Represents a graphical button with a specified position, size, and text.
+// Can be drawn on a window and provides functionality for detecting cursor interactions
 class Button
 {
 public:
@@ -45,6 +48,11 @@ public:
 			m_playing = true;
 			m_picture.setTexture(&Resources::instance().getTexture("volume"));
 		}
+	}
+	void draw(RenderWindow* window, sf::Vector2f cursorLocation)override
+	{
+		m_picture.setPosition(Vector2f{ window->getView().getCenter().x + WINDOW_SIZE.x / 2.2f, 40 });
+		Button::draw(window, cursorLocation);
 	}
 private:
 	bool m_playing;
@@ -104,36 +112,6 @@ public:
 private:
 	int m_num;
 };
-
-//class ChoosePlayersButton : public MainMenuButton
-//{
-//public:
-//	ChoosePlayersButton(Vector2f position)
-//		:MainMenuButton(position)
-//	{
-//		float y = BUTTONS_POSITION.y;
-//		float spaceBetweenButton = (WINDOW_SIZE.y - SPACE_WITHOUT_BUTTONS * 2.f) / (5 - 1);
-//		m_buttons.push_back(std::make_unique<NumberButton>(Vector2f{ BUTTONS_POSITION.x , y }, 4));
-//		y += spaceBetweenButton;
-//		m_buttons.push_back(std::make_unique<NumberButton>(Vector2f{ BUTTONS_POSITION.x , y }, 5));
-//		y += spaceBetweenButton;
-//		m_buttons.push_back(std::make_unique<NumberButton>(Vector2f{ BUTTONS_POSITION.x , y }, 6));
-//		y += spaceBetweenButton;
-//		m_buttons.push_back(std::make_unique<NumberButton>(Vector2f{ BUTTONS_POSITION.x , y }, 7));
-//		y += spaceBetweenButton;
-//		m_buttons.push_back(std::make_unique<NumberButton>(Vector2f{ BUTTONS_POSITION.x , y }, 8));
-//	
-//		m_text.setString("PLAYERS");
-//		m_text.setOrigin(Vector2f{ m_text.getGlobalBounds().width / 2.f, m_text.getGlobalBounds().height / 2.f + 10.f });
-//		m_backGround.setTexture(&Resources::instance().getTexture("main_background"));
-//		m_backGround.setSize(WINDOW_SIZE);
-//	}
-//	~ChoosePlayersButton() = default;
-//	void play(RenderWindow* window) override;
-//private:
-//	std::vector<std::unique_ptr<MainMenuButton>> m_buttons;
-//	sf::RectangleShape m_backGround;
-//};
 
 
 class HelpButton : public MainMenuButton

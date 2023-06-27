@@ -10,7 +10,9 @@
 
 class Player;
 
-
+// Represents a raft man character in the game.
+// Manages the player's team, position, shooting, movement, gameplay interactions, and animations.
+// Provides functions for shooting, drawing, playing, updating, handling collisions, and responding to explosions.
 class RaftMan: public DynamicObject
 {
 public:

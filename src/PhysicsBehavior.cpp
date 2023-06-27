@@ -22,7 +22,6 @@ void PhysicsBehavior::update(Shape* body)
 {   
     if(m_gravity)
         setVelocity({ getVelocity().x, getVelocity().y + GRAVITY * m_weight });
-    //std::cout << "response: " << m_velocity.x << " , " << m_velocity.y << std::endl;
 
     body->move(m_velocity * (m_timer.restart().asMilliseconds() * 0.04f));
 
@@ -50,7 +49,6 @@ void PhysicsBehavior::handleHit(const Vector2f& surface)
 {    
     Vector2f fix = surface / std::sqrtf(norm(surface));
     auto res = m_velocity - 2 * dotProduct(m_velocity, fix) * fix;
-    //std::cout << "response: " << res.x << " , " << res.y << std::endl;
 
     if (std::sqrtf(norm(res)) < 0.1f)
         res = sf::Vector2f();

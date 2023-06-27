@@ -2,7 +2,6 @@
 #include "SFML/Graphics.hpp"
 #include <vector>
 #include <memory>
-#include "Board.h"
 #include "RaftBlock.h"
 #include "RaftMan.h"
 #include "Weapon.h"
@@ -10,14 +9,18 @@
 
 using namespace std;
 class RaftMan;
+class Board;
 
+// Represents a player in the game.
+// Manages the player's raft, raft men, weapons, gameplay, and interactions.
+// Provides functions for updating, drawing, handling buttons and events, and managing game state.
 class Player
 {
 public:
     Player(int numOfRaftMen, const sf::Vector2f& position, Board* board);
     virtual ~Player() = default;
     virtual void update();
-    void draw(sf::RenderWindow* window);
+    void draw(sf::RenderWindow* window) const;
     void raftButtons();
     void addRaft(RaftMan& pawn, const enum Menu& button);
     bool placeRaft(const enum Menu& button, RaftBlock& raftBlock, const Vector2i& cursorLocation);
@@ -29,8 +32,8 @@ public:
     bool isPlaying() const;
     void resetButton() { m_lastButton = Menu::NON; }
     virtual void setPlay();
-    bool shooting() { auto search = find_if(m_weapons.begin(), m_weapons.end(), [](std::shared_ptr<Weapon> w) { return w->firing(); }); return search != m_weapons.end(); }
-    sf::Vector2f getObjectilePosition()
+    bool shooting() const { auto search = find_if(m_weapons.begin(), m_weapons.end(), [](std::shared_ptr<Weapon> w) { return w->firing(); }); return search != m_weapons.end(); }
+    sf::Vector2f getObjectilePosition() const
     {
         auto search = find_if(m_weapons.begin(), m_weapons.end(), [](std::shared_ptr<Weapon> w) { return w->firing(); });
         if (search != m_weapons.end())
@@ -49,11 +52,12 @@ protected:
     bool m_playing;
 private:
     Board* m_board;
+    void initalize();
     void initRaftMen();
     void initWeapons();
     void initMenu();
     vector<std::shared_ptr<Weapon>> m_weapons;
-
+    bool m_init;
     int m_crewSize;
     sf::Vector2f m_position;
     sf::Vector2f m_explosionPosition;

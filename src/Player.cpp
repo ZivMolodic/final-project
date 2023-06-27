@@ -1,34 +1,24 @@
 #include "Player.h"
+#include "Board.h"
 
 Player::Player(int numOfRaftMen, const sf::Vector2f& position, Board* board)
 	: m_playing(false), m_crewSize(numOfRaftMen), m_position(position),
-	m_lastButton(NON), m_board(board)
+	m_lastButton(NON), m_board(board), m_init(false)
+{}
+
+void Player::initalize()
 {
 	initMenu();
-	auto raft = new DownRaft(position);
+	auto raft = new DownRaft(m_position);
 	m_raft.emplace_back(raft);
 	m_board->addObject(raft);
 
-	raft = new DownRaft({ position.x + 160, position.y});
+	raft = new DownRaft({ m_position.x + 160, m_position.y });
 	m_raft.emplace_back(raft);
 	m_board->addObject(raft);
 
-	//raft = new DownRaft({ position.x + 160*3, position.y });
-	//m_raft.emplace_back(raft);
-	//m_board->addObject(raft);
-
-	//auto uraft = new UpRaft({ position.x + 160, position.y - 100 });
-	//m_raft.emplace_back(uraft);
-	//m_board->addObject(uraft);
-	
 	initRaftMen();
-	//for(int i=0; i < 3; ++i)
-	//	for(int j = 0; j < 2; ++j)
-	//		m_raft.emplace_back(std::make_shared<RaftBlock>(sf::Vector2f{ BACKGROUND_SIZE.x - i*163, position.y - 350*j }));
-	//for (int i = 1; i < 6; ++i)
-	//	m_raft.emplace_back(std::make_shared<RaftBlock>(sf::Vector2f{ position.x + i * 163, position.y }));
-	//std::unique_ptr<GameObject> p;
-	//auto weapon = new Weapon();
+
 	initWeapons();
 
 }
@@ -72,6 +62,11 @@ void Player::setPlay()
 
 void Player::update()
 {
+	if (!m_init)
+	{
+		m_init = true;
+		initalize();
+	}
 	for (auto& x : m_weapons) 
 	{
 		x->update();
@@ -117,7 +112,7 @@ void Player::restartTimer()
 	m_timer.restart();
 }
 
-void Player::draw(sf::RenderWindow* window)
+void Player::draw(sf::RenderWindow* window) const
 {
 	for (const auto& x : m_menu)
 		x->draw(window, Vector2f{ sf::Mouse::getPosition(*window).x * 1.f, sf::Mouse::getPosition(*window).y * 1.f });

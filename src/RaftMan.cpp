@@ -26,7 +26,7 @@ namespace
 
 
 RaftMan::RaftMan(Player* team, const sf::Vector2f& position)
-	: DynamicObject({30,60},position,"minions", 0.5, 2), m_team(team),
+	: DynamicObject(RAFTMAN_SIZE,position,"minions", 0.5, 2), m_team(team),
 	m_life(100), m_jumps(false), m_holdRaft(false), m_raftBlock(nullptr),
 	m_lastButton(NON), m_shot(false),
 	m_animation(Resources::instance().animationData(Resources::RaftMan), DirectionA::Stay, m_shape.get(), "minions")
@@ -218,14 +218,12 @@ void RaftMan::playWithWeapon(const enum Menu& button, sf::RenderWindow* window, 
 		if(button != m_lastButton)
 			m_team->getWeapon(*this, button);
 
-		else if (m_weapon)
+		else if (m_weapon && !m_weapon->firing())
 		{
 			sf::Vector2i mousePosition = sf::Mouse::getPosition(*window); // Get the global mouse position
 			sf::Vector2f localPosition = window->mapPixelToCoords(mousePosition); // Convert to local coordinates
 
 			m_weapon->shot((localPosition - m_shape->getPosition()) * 0.275f);
-			//m_team->setButtonStart();
-			//m_weapon = nullptr;
 			m_shot = true;
 			m_team->done(*this);
 		}
@@ -258,7 +256,7 @@ void RaftMan::handleCollision(const sf::RectangleShape& rec)
 void RaftMan::handleExplosion(const Explosion& explosion)
 {
 	auto vec = this->getPosition() - explosion.getPosition();
-	m_life -= 500 / std::sqrtf(vec.x * vec.x + vec.y * vec.y);
+	m_life -= (EXPLOSION_FACTOR-100) / std::sqrtf(vec.x * vec.x + vec.y * vec.y);
 	vec += {0, -15};
 	auto norm = std::sqrtf(vec.x * vec.x + vec.y * vec.y);
 	m_physics->setBounce(0.85f);
@@ -268,7 +266,6 @@ void RaftMan::handleExplosion(const Explosion& explosion)
 void RaftMan::handleObjectile(Objectile* objectile)
 {
 	auto vec = objectile->getVelocity();
-	//vec += {0, -15};
 	auto norm = std::sqrtf(vec.x * vec.x + vec.y * vec.y);
 	if (norm < 3)
 		return;

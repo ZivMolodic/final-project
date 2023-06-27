@@ -5,6 +5,8 @@
 
 using namespace sf;
 
+// Manages the gameplay loop, including game initialization and termination.
+// Provides functions for ending the game, drawing time, and handling player interactions.
 class GamePlay
 {
 public:

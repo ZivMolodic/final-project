@@ -5,6 +5,9 @@
 
 class Explosion;
 
+// Represents a block of the raft in the game.
+// Manages the size, position, and durability of the raft block.
+// Provides functionality for drawing, updating, handling explosions, and checking if the block is destroyed.
 class RaftBlock: public GameObject
 {
 public:
@@ -13,6 +16,7 @@ public:
 	void update() override;
 	virtual sf::RectangleShape getRectangle() const = 0;
 	void handleExplosion(const Explosion& explosion);
+	bool isDead() override { return m_durability <= 0; }
 	
 private:
 	int m_durability;

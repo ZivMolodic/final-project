@@ -1,9 +1,9 @@
 #include "Objectile.h"
 
 
-Objectile::Objectile(const sf::Vector2f& position, const sf::Vector2f& destination,
+Objectile::Objectile(float radius, const sf::Vector2f& position, const sf::Vector2f& destination,
     const std::string& str, float explosionRadius, float timeBound, bool rotation)
-    : DynamicObject(15,position,str,0.3f,1), m_explosion(nullptr), m_explosionRadius(explosionRadius),
+    : DynamicObject(radius ,position,str,0.3f,1), m_explosion(nullptr), m_explosionRadius(explosionRadius),
     m_timeBound(timeBound), m_enableRotation(rotation)
 {
     m_physics->setBodyToRotate(true);
@@ -11,8 +11,42 @@ Objectile::Objectile(const sf::Vector2f& position, const sf::Vector2f& destinati
     m_timer.restart();
 }
 
+bool Objectile::setteled() const 
+{ 
+    if (m_explosion) 
+        return m_explosion->isFinished(); 
+    
+    return false; 
+}
+
+std::shared_ptr<GameObject> Objectile::getObjectile()
+{ 
+    if (m_explosion) 
+        return m_explosion; 
+    else 
+        return this->shared_from_this();
+
+}
+
+bool Objectile::explodes() const
+{ 
+    if (m_explosion) 
+        return true; 
+    
+    return false; 
+}
+
+void Objectile::draw(sf::RenderWindow* window, const sf::Vector2f& position ) const
+{ 
+    if (!m_explosion) 
+        window->draw(*m_shape); 
+    else 
+        m_explosion->draw(window); 
+}
+
+
 GuidedMissile::GuidedMissile(const sf::Vector2f& position, const sf::Vector2f& destination)
-: Objectile(position, destination, "guided_missile", 150.f, 3.f, true)
+: Objectile(30, position, destination, "guided_missile", 150.f, 3.f, true)
 {
     m_physics->setGravity(false);
 }

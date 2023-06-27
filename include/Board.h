@@ -1,12 +1,12 @@
 #pragma once
 #include "GameObject.h"
-//#include "Player.h"
+#include "Player.h"
 #include <SFML/Graphics.hpp>
 
-class Player;
-class Computer;
 class RaftBlock;
 
+// Represents a game board containing player and computer positions, handles game logic, updates, and rendering.
+// Manages game objects, player turns, collisions, and tracks time.
 class Board
 {
 public:
@@ -26,8 +26,8 @@ private:
 	bool m_userTurn;
 	sf::Vector2f m_userPosition;
 	sf::Vector2f m_computerPosition;
-	std::shared_ptr<Player> m_user;
-	std::shared_ptr<Computer> m_computer;
+	Player m_user;
+	Computer m_computer;
 	std::vector<GameObject*> m_objects;
 	sf::Clock m_turnTime;
 };
