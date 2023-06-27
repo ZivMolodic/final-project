@@ -21,7 +21,7 @@ public:
 	sf::Vector2f getObjectilePosition() const;
 	sf::Vector2f getViewPosition() const;
 	bool isPlaying();
-
+	bool userDead(); 
 private:
 	bool m_userTurn;
 	sf::Vector2f m_userPosition;
@@ -29,4 +29,5 @@ private:
 	std::shared_ptr<Player> m_user;
 	std::shared_ptr<Computer> m_computer;
 	std::vector<GameObject*> m_objects;
+	sf::Clock m_turnTime;
 };

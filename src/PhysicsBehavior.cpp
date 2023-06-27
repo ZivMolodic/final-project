@@ -11,8 +11,8 @@ m_rotate(false), m_bounce(bounce), m_walking(false), m_gravity(true)
 void PhysicsBehavior::setVelocity(const Vector2f& velocity)
 {
     auto norma = std::sqrtf(norm(velocity));
-    if (norma > 70.f)
-        m_velocity = (velocity / norma) * 70.f;
+    if (norma > 150.f)
+        m_velocity = (velocity / norma) * 150.f;
     else
         m_velocity = velocity;
 }

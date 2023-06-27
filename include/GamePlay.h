@@ -11,6 +11,7 @@ public:
 	GamePlay(bool play);
 	void gameLoop(RenderWindow* window);
 private:
+	void end(RenderWindow* window,bool lost);
 	void drawTime(unsigned int time, sf::RenderWindow& window);
 	void openShot(RenderWindow*, Board& board);
 	sf::RectangleShape m_backGround;

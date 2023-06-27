@@ -223,7 +223,7 @@ void RaftMan::playWithWeapon(const enum Menu& button, sf::RenderWindow* window, 
 			sf::Vector2i mousePosition = sf::Mouse::getPosition(*window); // Get the global mouse position
 			sf::Vector2f localPosition = window->mapPixelToCoords(mousePosition); // Convert to local coordinates
 
-			m_weapon->shot((localPosition - m_shape->getPosition()) * 0.15f);
+			m_weapon->shot((localPosition - m_shape->getPosition()) * 0.275f);
 			//m_team->setButtonStart();
 			//m_weapon = nullptr;
 			m_shot = true;

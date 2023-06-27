@@ -37,6 +37,7 @@ public:
 private:
 	std::shared_ptr<Objectile> createObjectile(const sf::Vector2f& launchPosition, const sf::Vector2f& destination) override
 	{
+		Resources::instance().playMusic(Sounds::SHOOT);
 		// Create a GrenadeObject specific to GrenadeLauncher
 		return std::make_shared<Grenade>(launchPosition, destination);
 	}

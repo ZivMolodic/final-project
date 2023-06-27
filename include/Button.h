@@ -27,6 +27,7 @@ public:
 	VolumeButton(Vector2f position, bool play)
 		:Button(position, Vector2f(60, 60),"volume", play), m_playing(play)
 	{
+		m_playing = play;
 		if (!play)
 			m_picture.setTexture(&Resources::instance().getTexture("mute"));
 	}

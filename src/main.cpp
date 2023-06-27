@@ -14,9 +14,19 @@
 #include "Button.h"
 #include "GamePlay.h"
 
-int main() 
+int main() try
 {
 	srand(time(NULL));
 	auto menu = MainMenu();
 	menu.menuLoop(WINDOW_SIZE);
+}
+catch (std::exception& ex)
+{
+	std::cerr << "Exception: " << ex.what() << '\n';
+	return EXIT_FAILURE;
+}
+catch (...)
+{
+	std::cerr << "Unknown exception\n";
+	return EXIT_FAILURE;
 }

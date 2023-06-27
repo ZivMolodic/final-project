@@ -31,7 +31,7 @@ namespace {
 
         raftMan.handleCollision(raftBlock.getRectangle());
     }
-    
+
     void tennisWithMan(GameObject& tennis, GameObject& man)
     {
         Tennis& tennisBall = dynamic_cast<Tennis&>(tennis);

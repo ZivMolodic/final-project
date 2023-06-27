@@ -46,7 +46,7 @@ void Player::initRaftMen()
 	for (int i = 0; i < m_crewSize; ++i)
 	{
 		auto self = this;
-		auto raftMan = new RaftMan(self, sf::Vector2f(m_position.x -30 + 30*i, m_position.y - 180));
+		auto raftMan = new RaftMan(self, sf::Vector2f(m_position.x -40 + 80*i, m_position.y - 180));
 		m_raftMen.emplace_back(raftMan);
 		m_board->addObject(raftMan);
 	}
@@ -136,6 +136,8 @@ void Player::play(RenderWindow* window, const sf::Event& event)
 {
 	//needs to manage internal turns
 	//m_playing = true;
+	if (m_raftMen.size() <= 0)
+		throw std::exception("raft men didnt deallocated properly");
 	m_raftMen[0]->play(window, event);
 }
 
@@ -253,17 +255,16 @@ bool Computer::onEdge(float position) const
 
 float Computer::calculateVelocity(const sf::Vector2f& target, const sf::Vector2f& position)
 {
-	float time = (2 * 40) / GRAVITY;
+	float time = (2 * 50) / GRAVITY;
 	
-	//auto res = (target.x - position.x) / (time*2.3f);
-	//return res;
 	return (target.x - position.x) / (time * 0.3f);
 }
 
 void Computer::aim(const sf::Vector2f& target, RenderWindow* window, const sf::Event& event)
 {
 	std::vector<Menu> vec{ Menu::TENNIS, Menu::GRENADE , Menu::MISSILE };
-	m_raftMen[m_turn % m_raftMen.size()]->shoot(sf::Vector2f(1 * calculateVelocity(target, m_raftMen[m_turn % m_raftMen.size()]->getPosition()), -40), vec[rand() % vec.size()]);
+	auto velocity = sf::Vector2f(calculateVelocity(target, m_raftMen[m_turn % m_raftMen.size()]->getPosition()), -50 + (rand()%7 - 3));
+	m_raftMen[m_turn % m_raftMen.size()]->shoot(velocity , vec[rand() % vec.size()]);
 	m_playing = false;
 	m_timer.restart();
 }

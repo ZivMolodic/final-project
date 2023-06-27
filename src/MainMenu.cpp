@@ -12,14 +12,14 @@
 MainMenu::MainMenu()
 :m_volButton(Vector2f{ WINDOW_SIZE.x - 60, 60 }, true)
 {
-    float y = BUTTONS_POSITION.y + 20;
+    float y = BUTTONS_POSITION.y + 50;
+
     //le'adken et mispar hakaftorim
-    float spaceBetweenButton = (WINDOW_SIZE.y - SPACE_WITHOUT_BUTTONS * 1.7) / (3 - 1);
+    float spaceBetweenButton = (WINDOW_SIZE.y - SPACE_WITHOUT_BUTTONS * 2) / (3 - 1);
 
     m_buttons.push_back(std::make_unique<PlayButton>(Vector2f{ BUTTONS_POSITION.x , y }));
     y += spaceBetweenButton;
-   // m_buttons.push_back(std::make_unique<ChoosePlayersButton>(Vector2f{ BUTTONS_POSITION.x , y }));
-   // y += spaceBetweenButton;
+   
     m_buttons.push_back(std::make_unique<HelpButton>(Vector2f{ BUTTONS_POSITION.x , y }));
     y += spaceBetweenButton;
     m_buttons.push_back(std::make_unique<ExitButton>(Vector2f{ BUTTONS_POSITION.x , y }));

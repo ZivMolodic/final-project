@@ -16,8 +16,6 @@ class Resources
 public:
 	enum Objects
 	{
-		Missile,
-		GuidedMissile,
 		RaftMan,
 		MAX
 	};
@@ -26,7 +24,7 @@ public:
 	static Resources& instance();
 	sf::Texture &getTexture(const std::string& str);
 	sf::Font& getFont() { return m_font;  }
-//	void playMusic(enum Sounds i, int vol = 100);
+	void playMusic(enum Sounds i, int vol = 100);
 	void playBackGround();
 	void volumeBackGround(int vol);
 	void stopBackGroundMusic();
@@ -43,7 +41,7 @@ private:
 	sf::Font m_font;
 	sf::Texture m_texture;
 
-//	std::vector<sf::SoundBuffer> m_sounds;
+	std::vector<sf::SoundBuffer> m_sounds;
 	sf::Music m_backGround;
-//	sf::Sound m_sound;
+	sf::Sound m_sound;
 };
