@@ -22,7 +22,8 @@ public:
     void rotate(float rotation) { if (m_enableRotation) m_physics->rotate(rotation); }
 protected:
     sf::Clock m_timer;
-    void explode() { m_explosion = std::make_shared<Explosion>(getPosition(), m_explosionRadius);}
+    void explode() { Resources::instance().playMusic(EXPLOSION);
+        m_explosion = std::make_shared<Explosion>(getPosition(), m_explosionRadius);}
 private:
     void launch(const Vector2f& velocity) { m_physics->setVelocity(velocity); }
     //bool m_setteled;
@@ -51,17 +52,12 @@ public:
 class Missile : public Objectile
 {
 public:
-    Missile(const sf::Vector2f& position, const sf::Vector2f& destination) 
-        : Objectile(position, destination, "missile", 150.f, 6.f),
-        m_animation(Resources::instance().animationData(Resources::Missile), DirectionA::Right, m_shape.get(), "missile") {}
+    Missile(const sf::Vector2f& position, const sf::Vector2f& destination)
+        : Objectile(position, destination, "missile", 150.f, 6.f) {}
     void handleCollision(const RectangleShape& rec) override;
     virtual void update() override {
         Objectile::update();
-        m_animation.update(m_physics->getElapsedTime());
     }
-private:
-    DirectionA m_dir = DirectionA::Right;
-    Animation m_animation;
 };
 
 class GuidedMissile : public Objectile
@@ -70,9 +66,5 @@ public:
     GuidedMissile(const sf::Vector2f& position, const sf::Vector2f& destination);
     void handleCollision(const RectangleShape& rec) override;
     virtual void update() override { Objectile::update();
-    m_animation.update(m_physics->getElapsedTime());
     }
-private:
-    DirectionA m_dir = DirectionA::Right;
-    Animation m_animation;
 };

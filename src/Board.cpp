@@ -21,6 +21,9 @@ bool Board::isPlaying()
     return !m_computer->isDead() && !m_user->isDead();
 }
 
+bool Board::userDead()
+{ return m_user->isDead(); }
+
 sf::Vector2f Board::getViewPosition() const
 {
     if (m_userTurn && m_user->getExplosionPosition() != sf::Vector2f())

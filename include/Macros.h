@@ -1,6 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+enum Sounds { TIMER, FINISH_LEVEL, GAME_OVER, SHOOT, EXPLOSION };
+
 const sf::Vector2f WINDOW_SIZE = { 900.f, 607.f };
 const float SPACE_WITHOUT_BUTTONS = 200.f; //from one side
 const sf::Vector2f GRAPH_POS = { 60.f, 40.f }; //from one side

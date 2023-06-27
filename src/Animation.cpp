@@ -2,7 +2,7 @@
 
 #include "Resources.h"
 
-const auto AnimationTime = sf::seconds(0.000001f);
+const auto AnimationTime = sf::seconds(0.00001f);
 
 Animation::Animation(const AnimationData& data, DirectionA dir, sf::Shape* sprite, const  std::string& str)
     : m_data(data), m_dir(dir), m_sprite(sprite)

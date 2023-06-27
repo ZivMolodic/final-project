@@ -42,7 +42,7 @@ void HelpButton::play(RenderWindow* window)
     sf::Texture texture1;
     texture1.loadFromFile("back.png");
     back.setTexture(&texture1);
-    back.setPosition({ 820, 550 });
+    back.setPosition({ 830, 570 });
     back.setOrigin(back.getSize() / 2.f);
 
     while (window->isOpen())

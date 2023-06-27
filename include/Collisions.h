@@ -16,6 +16,9 @@ namespace {
         RaftMan& raftMan = dynamic_cast<RaftMan&>(man);
         DownRaft& raftBlock = dynamic_cast<DownRaft&>(raft);
 
+//        if (raftMan.noLife())
+  //          return;
+
         raftMan.handleCollision(raftBlock.getRectangle());
     }
     void manWithUpRaft(GameObject& man, GameObject& raft)
@@ -23,17 +26,28 @@ namespace {
         RaftMan& raftMan = dynamic_cast<RaftMan&>(man);
         UpRaft& raftBlock = dynamic_cast<UpRaft&>(raft);
 
+//        if (raftMan.noLife())
+  //          return;
+
         raftMan.handleCollision(raftBlock.getRectangle());
     }
-    
+
     void tennisWithMan(GameObject& tennis, GameObject& man)
     {
         Tennis& tennisBall = dynamic_cast<Tennis&>(tennis);
         RaftMan& raftMan = dynamic_cast<RaftMan&>(man);
-        
-        //auto explosion = Explosion(tennisBall.getPosition(), 100.f);
-        if(tennisBall.getFlightTime() > 0.5f)
-        raftMan.handleObjectile(&tennisBall);
+
+        auto vec = tennisBall.getVelocity();
+        auto norm = std::sqrtf(vec.x * vec.x + vec.y * vec.y);
+        if (norm < 4)
+            return;
+
+        auto rec = sf::RectangleShape({ raftMan.getRec().width,raftMan.getRec().height });
+        rec.setPosition({ raftMan.getRec().left,raftMan.getRec().top });
+        if (tennisBall.getFlightTime() > 0.5f)
+            raftMan.handleObjectile(&tennisBall);
+
+        tennisBall.handleCollision(rec);
     }
 
     void objectileWithDownRaft(Objectile* obj, GameObject& raft)
