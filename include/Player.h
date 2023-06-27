@@ -71,9 +71,9 @@ public:
     void setPlay() override;
 
 private:
-    void buildRaft();
     void walk(const sf::Vector2f& destination, RenderWindow* window, const sf::Event& event);
     void aim(const sf::Vector2f& target, RenderWindow* window, const sf::Event& event);
+    void buildRaft();
     sf::Vector2f calculateDirection(const sf::Vector2f& shooterPosition, const sf::Vector2f& targetPosition, float projectileSpeed);
     float calculateVelocity(const sf::Vector2f& target, const sf::Vector2f& position);
     bool onEdge(float position) const;

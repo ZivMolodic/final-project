@@ -32,6 +32,7 @@ public:
 	void stopBackGroundMusic();
 	const AnimationData& animationData(Objects object) { return m_animation[object]; }
 
+
 private:
 	Resources();
 	void loadGraphics();

@@ -6,9 +6,9 @@ namespace
 {
     AnimationData MissileData()
     {
-        const auto size = sf::Vector2i(40, 40);
-        const auto initSpace = sf::Vector2i(1, 2);
-        const auto middleSpace = sf::Vector2i(0, 10);
+        const auto size = sf::Vector2i(430, 400);
+        const auto initSpace = sf::Vector2i(0, 0);
+        const auto middleSpace = sf::Vector2i(0, 0);
 
         auto missile = AnimationData{};
         auto currentStart = initSpace;
@@ -22,21 +22,23 @@ namespace
 
         missile.m_data[DirectionA::Right].emplace_back(currentStart, size);
         missile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
-        missile.m_data[DirectionA::Down].emplace_back(nextStart(), size);
-        missile.m_data[DirectionA::Down].emplace_back(nextStart(), size);
-        missile.m_data[DirectionA::Left].emplace_back(nextStart(), size);
-        missile.m_data[DirectionA::Left].emplace_back(nextStart(), size);
-        missile.m_data[DirectionA::Up].emplace_back(nextStart(), size);
-        missile.m_data[DirectionA::Up].emplace_back(nextStart(), size);
+        missile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
+        missile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
+        missile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
+        missile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
+        missile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
+        missile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
+        missile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
+        
 
         return missile;
     }
 
     AnimationData GuidedMissileData()
     {
-        const auto size = sf::Vector2i(40, 40);
-        const auto initSpace = sf::Vector2i(851, 2);
-        const auto middleSpace = sf::Vector2i(0, 10);
+        const auto size = sf::Vector2i(514.5, 515);
+        auto initSpace = sf::Vector2i(0, 0);
+        const auto middleSpace = sf::Vector2i(0, 0);
 
         auto guidedMissile = AnimationData{};
         auto currentStart = initSpace;
@@ -51,15 +53,29 @@ namespace
         guidedMissile.m_data[DirectionA::Right].emplace_back(currentStart, size);
         guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
         guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
-        guidedMissile.m_data[DirectionA::Down].emplace_back(nextStart(), size);
-        guidedMissile.m_data[DirectionA::Down].emplace_back(nextStart(), size);
-        guidedMissile.m_data[DirectionA::Down].emplace_back(nextStart(), size);
-        guidedMissile.m_data[DirectionA::Left].emplace_back(nextStart(), size);
-        guidedMissile.m_data[DirectionA::Left].emplace_back(nextStart(), size);
-        guidedMissile.m_data[DirectionA::Left].emplace_back(nextStart(), size);
-        guidedMissile.m_data[DirectionA::Up].emplace_back(nextStart(), size);
-        guidedMissile.m_data[DirectionA::Up].emplace_back(nextStart(), size);
-        guidedMissile.m_data[DirectionA::Up].emplace_back(nextStart(), size);
+        guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
+        guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
+		/*initSpace = sf::Vector2i(0, 515);
+		currentStart = initSpace;
+		guidedMissile.m_data[DirectionA::Right].emplace_back(currentStart, size);
+        guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
+        guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
+        guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
+        guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
+		initSpace = sf::Vector2i(0, 1030);
+		currentStart = initSpace;
+		guidedMissile.m_data[DirectionA::Right].emplace_back(currentStart, size);
+        guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
+        guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
+        guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
+        guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
+		initSpace = sf::Vector2i(0, 1545);
+		currentStart = initSpace;
+		guidedMissile.m_data[DirectionA::Right].emplace_back(currentStart, size);
+        guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
+        guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
+        guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
+        guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);*/
 
         return guidedMissile;
     }
@@ -164,6 +180,8 @@ void Resources::loadGraphics()
 		m_textures[pngNames[i]].setSmooth(true);
 	}
 
+	
+
 	m_font.loadFromFile("C:/Windows/Fonts/Bauhs93.ttf");
 }
 
@@ -230,4 +248,5 @@ void Resources::stopBackGroundMusic()
 {
 	m_backGround.stop();
 }
+
 

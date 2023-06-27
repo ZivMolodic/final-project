@@ -4,6 +4,7 @@
 #include "Resources.h"
 #include "Explosion.h"
 #include "GameObject.h"
+#include "Animation.h"
 
 
 class Objectile: public DynamicObject, public std::enable_shared_from_this<Objectile>
@@ -50,8 +51,17 @@ public:
 class Missile : public Objectile
 {
 public:
-    Missile(const sf::Vector2f& position, const sf::Vector2f& destination) : Objectile(position, destination, "missile", 150.f, 6.f) {}
+    Missile(const sf::Vector2f& position, const sf::Vector2f& destination) 
+        : Objectile(position, destination, "missile", 150.f, 6.f),
+        m_animation(Resources::instance().animationData(Resources::Missile), DirectionA::Right, m_shape.get(), "missile") {}
     void handleCollision(const RectangleShape& rec) override;
+    virtual void update() override {
+        Objectile::update();
+        m_animation.update(m_physics->getElapsedTime());
+    }
+private:
+    DirectionA m_dir = DirectionA::Right;
+    Animation m_animation;
 };
 
 class GuidedMissile : public Objectile
@@ -59,4 +69,10 @@ class GuidedMissile : public Objectile
 public:
     GuidedMissile(const sf::Vector2f& position, const sf::Vector2f& destination);
     void handleCollision(const RectangleShape& rec) override;
+    virtual void update() override { Objectile::update();
+    m_animation.update(m_physics->getElapsedTime());
+    }
+private:
+    DirectionA m_dir = DirectionA::Right;
+    Animation m_animation;
 };

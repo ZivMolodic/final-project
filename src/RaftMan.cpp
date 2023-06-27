@@ -30,10 +30,16 @@ RaftMan::RaftMan(Player* team, const sf::Vector2f& position)
 	m_life(100), m_jumps(false), m_holdRaft(false), m_raftBlock(nullptr),
 	m_lastButton(NON), m_shot(false),
 	m_animation(Resources::instance().animationData(Resources::RaftMan), DirectionA::Stay, m_shape.get(), "minions")
-{}
+{
+	m_lifeText.setFont(Resources::instance().getFont());
+	m_lifeText.setCharacterSize(20);
+	m_lifeText.setFillColor(sf::Color::Black);
+	m_lifeText.setOutlineThickness(1);
+	m_lifeText.setOutlineColor(sf::Color::White);
+}
 
 void RaftMan::update()
-{
+{ 
 	if (getPosition().y > BACKGROUND_SIZE.y)
 	{
 		setDead();
@@ -41,6 +47,13 @@ void RaftMan::update()
 	}
 	m_physics->update(m_shape.get());
 	m_animation.update(m_physics->getElapsedTime());
+
+	m_lifeText.setString(std::to_string(m_life));
+	sf::Vector2f textPosition = m_shape->getPosition();
+	textPosition.y -= m_shape->getGlobalBounds().height - 10;
+	m_lifeText.setPosition(textPosition);
+	m_lifeText.setOrigin(Vector2f{ m_lifeText.getGlobalBounds().width / 2.f, m_lifeText.getGlobalBounds().height / 2.f });
+
 	if (m_weapon)
 	{
 		if (m_shot && !m_weapon->firing())
@@ -50,7 +63,7 @@ void RaftMan::update()
 			m_team->resetButton();
 		}
 		else
-		{
+	{
 			m_weapon->setPosition(getPosition());
 			m_weapon->update();
 		}
@@ -60,6 +73,8 @@ void RaftMan::update()
 void RaftMan::draw(sf::RenderWindow* window, const sf::Vector2f& position) const
 {
 	window->draw(*m_shape);
+	window->draw(m_lifeText);
+
 	if (m_weapon)
 		m_weapon->draw(window, { m_shape->getPosition().x, getPosition().y + 5 });
 	if (m_holdRaft)
@@ -89,13 +104,13 @@ void RaftMan::raftManMove(sf::RenderWindow* window, const sf::Event& event, cons
 	m_physics->setVelocity({ 0 , m_physics->getVelocity().y });
 	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && direction == Direction::NA) || direction == Direction::Left)
 	{
+		m_shape->setScale(-1, 1);
 
 		if (m_physics->isJumping())
 			m_physics->setVelocity({ -2.9f,m_physics->getVelocity().y });
 		else
 		{
 			m_animation.direction(DirectionA::Right);
-			m_shape->setScale(-1, 1);
 			m_shape->move({ -1,0 });
 			m_physics->setVelocity({ -0.5,m_physics->getVelocity().y });
 			m_physics->setWalking(true);
@@ -104,12 +119,12 @@ void RaftMan::raftManMove(sf::RenderWindow* window, const sf::Event& event, cons
 
 	else if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && direction == Direction::NA) || direction == Direction::Right)
 	{
+		m_shape->setScale({ 1,1 });
 
 		if(m_physics->isJumping())
 			m_physics->setVelocity({ 2.9f,m_physics->getVelocity().y});
 		else
 		{
-			m_shape->setScale({ 1,1 });
 			m_animation.direction(DirectionA::Right);
 			m_shape->move({ 1,0 });
 			m_physics->setVelocity({ 0.5,m_physics->getVelocity().y });

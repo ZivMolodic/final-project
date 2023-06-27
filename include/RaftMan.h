@@ -33,6 +33,7 @@ private:
 	bool m_shot;
 	bool m_jumps;
 	int m_life;
+	sf::Text m_lifeText;
 	enum Menu m_lastButton;
 	Player* m_team;
 	std::shared_ptr<Weapon> m_weapon;

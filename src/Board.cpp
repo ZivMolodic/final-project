@@ -76,7 +76,7 @@ void Board::draw(RenderWindow* window)
     m_user->draw(window);
 }
 void Board::play(RenderWindow* window, const sf::Event& event) 
-{
+{ 
     static bool x = false;
     if (m_userTurn)
     {
@@ -99,7 +99,8 @@ void Board::play(RenderWindow* window, const sf::Event& event)
             m_user->setPlay();
         }
     }
-    //m_user->play(window, event);
+	//m_user->play(window, event);
+    m_computer->play(window, event);
 }
 
 void Board::handleCollisions()
@@ -139,7 +140,7 @@ sf::Vector2f Board::getObjectilePosition() const
 {
     if (m_user->shooting()) 
         return m_user->getObjectilePosition(); 
-    
+
     if (m_computer->shooting()) 
         return m_computer->getObjectilePosition();
 }

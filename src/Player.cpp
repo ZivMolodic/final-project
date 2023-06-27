@@ -128,6 +128,7 @@ void Player::draw(sf::RenderWindow* window)
 	//	if (weapon->firing())
 	//		weapon->draw(window);
 
+
 	//for (const auto& x : m_raftMen)
 	//	x->draw(window);
 	//for (const auto& x: m_raftMen)
@@ -271,6 +272,8 @@ bool Computer::onEdge(float position) const
 
 	return false;
 }
+
+
 float Computer::calculateVelocity(const sf::Vector2f& target, const sf::Vector2f& position)
 {
 	float time = (2 * 20) / GRAVITY;
@@ -417,7 +420,7 @@ void Player::addRaft(RaftMan& pawn, const enum Menu& button)
 	for (const auto& raft : m_raft)
 		if (raft.get()->getPosition() == pawn.getRaftBlock()->getPosition())
 			return;
-	
+
 	m_playing = false;
 
 	if (button == UP_RAFT)

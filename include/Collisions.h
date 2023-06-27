@@ -33,7 +33,7 @@ namespace {
         
         //auto explosion = Explosion(tennisBall.getPosition(), 100.f);
         if(tennisBall.getFlightTime() > 0.5f)
-            raftMan.handleObjectile(&tennisBall);
+        raftMan.handleObjectile(&tennisBall);
     }
 
     void objectileWithDownRaft(Objectile* obj, GameObject& raft)

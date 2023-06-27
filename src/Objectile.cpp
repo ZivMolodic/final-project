@@ -12,7 +12,8 @@ Objectile::Objectile(const sf::Vector2f& position, const sf::Vector2f& destinati
 }
 
 GuidedMissile::GuidedMissile(const sf::Vector2f& position, const sf::Vector2f& destination)
-: Objectile(position, destination, "guided_missile", 150.f, 3.f, true) 
+: Objectile(position, destination, "guided_missile", 150.f, 3.f, true),
+    m_animation(Resources::instance().animationData(Resources::GuidedMissile), DirectionA::Right, m_shape.get(), "guided_missile")
 {
     m_physics->setGravity(false);
 }
