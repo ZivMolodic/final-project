@@ -12,7 +12,7 @@ public:
 	void gameLoop(RenderWindow* window);
 private:
 	void drawTime(unsigned int time, sf::RenderWindow& window);
-	void openShot(RenderWindow*, std::shared_ptr<Player> player);
+	void openShot(RenderWindow*, Board& board);
 	sf::RectangleShape m_backGround;
 	sf::Text m_text;
 	VolumeButton m_volButton;

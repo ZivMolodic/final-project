@@ -100,6 +100,7 @@ void RaftMan::play(sf::RenderWindow* window, const sf::Event& event, const Direc
 
 void RaftMan::raftManMove(sf::RenderWindow* window, const sf::Event& event, const Direction& direction)
 {
+	m_physics->setBounce(0.5);
 	m_physics->setWalking(false);
 	m_physics->setVelocity({ 0 , m_physics->getVelocity().y });
 	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && direction == Direction::NA) || direction == Direction::Left)
@@ -139,7 +140,7 @@ void RaftMan::raftManMove(sf::RenderWindow* window, const sf::Event& event, cons
 		{
 			m_animation.direction(DirectionA::Up);
 			m_physics->setJumping(true);
-			m_physics->setVelocity({ 0, -15 });
+			m_physics->setVelocity({ 0, -25 });
 		}
 	}
 	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && direction == Direction::NA)
@@ -222,7 +223,7 @@ void RaftMan::playWithWeapon(const enum Menu& button, sf::RenderWindow* window, 
 			sf::Vector2i mousePosition = sf::Mouse::getPosition(*window); // Get the global mouse position
 			sf::Vector2f localPosition = window->mapPixelToCoords(mousePosition); // Convert to local coordinates
 
-			m_weapon->shot((localPosition - m_shape->getPosition()) * 0.06f);
+			m_weapon->shot((localPosition - m_shape->getPosition()) * 0.15f);
 			//m_team->setButtonStart();
 			//m_weapon = nullptr;
 			m_shot = true;
@@ -257,19 +258,22 @@ void RaftMan::handleCollision(const sf::RectangleShape& rec)
 void RaftMan::handleExplosion(const Explosion& explosion)
 {
 	auto vec = this->getPosition() - explosion.getPosition();
+	m_life -= 500 / std::sqrtf(vec.x * vec.x + vec.y * vec.y);
 	vec += {0, -15};
 	auto norm = std::sqrtf(vec.x * vec.x + vec.y * vec.y);
-	//m_life -= 1 / std::sqrtf(vec.x * vec.x + vec.y * vec.y);
 	m_physics->setBounce(0.85f);
 	m_physics->setVelocity((explosion.getLimitRadius() / norm) * (vec / norm) * 2.f);
 }
 
 void RaftMan::handleObjectile(Objectile* objectile)
 {
-	//auto vec = this->getPosition() - objectile->getPosition();
+	auto vec = objectile->getVelocity();
 	//vec += {0, -15};
-	//auto norm = std::sqrtf(vec.x * vec.x + vec.y * vec.y);
-	//m_life -= 1 / std::sqrtf(vec.x * vec.x + vec.y * vec.y);
+	auto norm = std::sqrtf(vec.x * vec.x + vec.y * vec.y);
+	if (norm < 3)
+		return;
+
+	m_life -= norm / 140 ;
 	m_physics->setBounce(0.85f);
 	if (std::abs(objectile->getVelocity().y) < 5)
 		m_physics->setVelocity(sf::Vector2f( objectile->getVelocity().x, -10 ) * 0.5f);

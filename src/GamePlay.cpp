@@ -20,8 +20,7 @@ GamePlay::GamePlay(bool play)
 
 void GamePlay::gameLoop(RenderWindow* window)
 {
-    auto board = Board(Vector2f{ 400, 400 }, Vector2f{ 220,400 }, 1);
-    //auto player = std::make_shared<Player>(numOfRaftMan, Vector2f{ 180, 400 });
+    auto board = Board(Vector2f{ 220, 400 }, Vector2f{ 1820,400 }, 4);
 
     bool playerTurn = true;
 
@@ -30,9 +29,12 @@ void GamePlay::gameLoop(RenderWindow* window)
     int timeAsSeconds = 30;
 
     window->setFramerateLimit(60);
-    //openShot(window, player);
+
+    //openShot(window, board);
 
     sf::Clock turnTimer;
+
+    bool firstTime = true;
 
     while (window->isOpen())
     {
@@ -46,12 +48,10 @@ void GamePlay::gameLoop(RenderWindow* window)
         board.draw(window);
         m_volButton.draw(window, sf::Vector2f({ sf::Mouse::getPosition(*window).x * 1.f,
                                                 sf::Mouse::getPosition(*window).y * 1.f }));
+        window->display();
 
         if (!board.isPlaying())
             break;
-
-
-        window->display();
 
         auto event = sf::Event{};
         while (window->pollEvent(event))
@@ -61,15 +61,6 @@ void GamePlay::gameLoop(RenderWindow* window)
             case sf::Event::Closed:
             {
                 window->close();
-                break;
-            }
-            case sf::Event::KeyPressed:
-            {
-                // view = View(sf::FloatRect(window->getView().getCenter().x + 10, 0, 300, 600));
-                break;
-            }
-            case sf::Event::KeyReleased:
-            {
                 break;
             }
             case sf::Event::MouseButtonReleased:
@@ -85,10 +76,7 @@ void GamePlay::gameLoop(RenderWindow* window)
             }
             }
         }
-        // view = window->getView();
-            /*if(view.getCenter().x + view.getSize().x/2.f < m_backGround.getSize().x &&
-                view.getCenter().x + view.getSize().x / 2.f > 0)
-                view.move(Vector2f({ 1, 0 }) * 0.15f);*/
+
         if (turnTimer.getElapsedTime().asSeconds() >= timeAsSeconds)
         {
             playerTurn = !playerTurn;
@@ -97,22 +85,7 @@ void GamePlay::gameLoop(RenderWindow* window)
 
 
         board.play(window, event);
-        //if (playerTurn)
-        //{
-        //    player->play(window, event);
-        //    //playerTurn = false;
-        //}
-        //else if (player->isPlaying())
-        //    player->play(window, event);
 
-    //if (board.shooting())
-        //{
-    //    sf::Vector2f objPosition = board.getObjectilePosition();
-        //    if (objPosition.x - view.getSize().x/2.f > 0 && objPosition.x + view.getSize().x/2.f <= m_backGround.getSize().x)
-        //        view.setCenter({ objPosition.x, view.getCenter().y });
-        //}
-        //else
-    {
         sf::Vector2f position = board.getViewPosition();
         if(position.x - view.getSize().x / 2.f < 0)
             view.setCenter({ view.getSize().x / 2.f , view.getCenter().y });
@@ -120,24 +93,28 @@ void GamePlay::gameLoop(RenderWindow* window)
             view.setCenter({BACKGROUND_SIZE.x - view.getSize().x / 2.f , view.getCenter().y });
         else
             view.setCenter(board.getViewPosition().x, view.getCenter().y);
-    }
 
     }
 }
 
 
-void GamePlay::openShot(RenderWindow* window, std::shared_ptr<Player> player)
+void GamePlay::openShot(RenderWindow* window, Board& board)
 {
     auto view = sf::View(sf::FloatRect(0, 0, WINDOW_SIZE.x, WINDOW_SIZE.y));
 
     bool firstTime = true;
+    bool initTime = false;
     
+    sf::Clock timer;
+
     while (window->isOpen())
     {
         window->clear();
         window->setView(view);
         window->draw(m_backGround);
-        //player->draw(window);
+        board.update();
+        board.handleCollisions();
+        board.draw(window);
         window->display();
         if (firstTime) {
             sleep(sf::seconds(1));
@@ -147,10 +124,13 @@ void GamePlay::openShot(RenderWindow* window, std::shared_ptr<Player> player)
         if (view.getCenter().x + view.getSize().x / 2.f < m_backGround.getSize().x &&
             view.getCenter().x + view.getSize().x / 2.f > 0)
             view.move(Vector2f({ 1, 0 }) * 10.f);
-        else {
-            sleep(sf::seconds(1));
-            break;
+        else if (!initTime)
+        {
+            initTime = true;
+            timer.restart();
         }
+        else if (timer.getElapsedTime().asSeconds() > 1)
+            break;
     }
 }
 

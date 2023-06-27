@@ -36,7 +36,7 @@ namespace
 
     AnimationData GuidedMissileData()
     {
-        const auto size = sf::Vector2i(514.5, 515);
+        const auto size = sf::Vector2i(515.5, 515);
         auto initSpace = sf::Vector2i(0, 0);
         const auto middleSpace = sf::Vector2i(0, 0);
 
@@ -55,27 +55,27 @@ namespace
         guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
         guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
         guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
-		/*initSpace = sf::Vector2i(0, 515);
+		initSpace = sf::Vector2i(0, 515.5);
 		currentStart = initSpace;
 		guidedMissile.m_data[DirectionA::Right].emplace_back(currentStart, size);
         guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
         guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
         guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
         guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
-		initSpace = sf::Vector2i(0, 1030);
+		initSpace = sf::Vector2i(0, 1031);
 		currentStart = initSpace;
 		guidedMissile.m_data[DirectionA::Right].emplace_back(currentStart, size);
         guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
         guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
         guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
         guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
-		initSpace = sf::Vector2i(0, 1545);
+		initSpace = sf::Vector2i(0, 1546.5);
 		currentStart = initSpace;
 		guidedMissile.m_data[DirectionA::Right].emplace_back(currentStart, size);
         guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
         guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
         guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
-        guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);*/
+        guidedMissile.m_data[DirectionA::Right].emplace_back(nextStart(), size);
 
         return guidedMissile;
     }

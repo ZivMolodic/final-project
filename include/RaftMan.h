@@ -23,10 +23,15 @@ public:
 	void playWithRaft(const enum Menu& button, sf::RenderWindow* window, const sf::Event& event);
 	void playWithWeapon(const enum Menu& button, sf::RenderWindow* window, const sf::Event& event);
 	void update() override;
+	bool noLife() { return m_life <= 0; }
 	void handleExplosion(const Explosion& explosion);
 	void handleCollision(const sf::RectangleShape& rec = sf::RectangleShape()) override;
 	RaftBlock* getRaftBlock() const { return m_raftBlock.get(); }
 	void handleObjectile(Objectile* objectile);
+	void stay() { m_animation.direction(DirectionA::Stay); }
+	bool isStay() { return m_animation.getDirection() == DirectionA::Stay; }
+	sf::Vector2f getScale() const { return m_shape->getScale(); }
+	void scale(const sf::Vector2f& factor) { m_shape->scale(factor); }
 
 private:
 	bool m_holdRaft;

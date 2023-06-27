@@ -71,6 +71,7 @@ public:
     void handleCollision(const RectangleShape& rec) override;
     virtual void update() override { Objectile::update();
     m_animation.update(m_physics->getElapsedTime());
+    m_shape->rotate(-45);
     }
 private:
     DirectionA m_dir = DirectionA::Right;

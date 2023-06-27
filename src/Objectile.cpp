@@ -67,13 +67,6 @@ void Objectile::update()
         //if (m_physics->getVelocity() == sf::Vector2f(0, 0))
         //    m_setteled = true;
     }
-
-
-    //if (auto update = m_physics.manageCollision(m_shape.getPosition(), m_shape.getRadius()); update != sf::Vector2f(0, 0))
-    //    m_shape.setPosition(update);
-
-    //if (m_physics.getVelocity() == sf::Vector2f(0,0))
-    //    m_setteled = true;
 }
 
 

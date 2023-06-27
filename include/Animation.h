@@ -17,6 +17,8 @@ public:
     // updates the sprite to show the next frame in the animation
     void update(sf::Time delta);
 
+    DirectionA getDirection() const { return m_dir; }
+
 private:
     // Update the sprite to take the correct part of the texture,
     // based on current dir and index

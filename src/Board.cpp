@@ -63,7 +63,7 @@ void Board::update()
         object->update(); 
 }
 
-void Board::draw(RenderWindow* window) 
+void Board::draw(RenderWindow* window) const
 {
 	for (auto& object : m_objects)
         if (std::string(typeid(*object).name()) != std::string("class RaftMan"))

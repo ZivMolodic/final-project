@@ -16,7 +16,7 @@ class Player
 public:
     Player(int numOfRaftMen, const sf::Vector2f& position, Board* board);
     virtual ~Player() = default;
-    void update();
+    virtual void update();
     void draw(sf::RenderWindow* window);
     void raftButtons();
     void addRaft(RaftMan& pawn, const enum Menu& button);
@@ -69,12 +69,12 @@ public:
         : Player(numOfRaftMen, position, board), m_turn(0), m_play(false), m_initTurn(false) {}
     void play(RenderWindow* window, const sf::Event& event) override;
     void setPlay() override;
+    void update() override;
 
 private:
     void walk(const sf::Vector2f& destination, RenderWindow* window, const sf::Event& event);
     void aim(const sf::Vector2f& target, RenderWindow* window, const sf::Event& event);
     void buildRaft();
-    sf::Vector2f calculateDirection(const sf::Vector2f& shooterPosition, const sf::Vector2f& targetPosition, float projectileSpeed);
     float calculateVelocity(const sf::Vector2f& target, const sf::Vector2f& position);
     bool onEdge(float position) const;
     int m_turn;

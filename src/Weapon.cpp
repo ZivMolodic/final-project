@@ -44,7 +44,7 @@ void Weapon::draw(RenderWindow* window, const sf::Vector2f& position) const
 }
 
 void Weapon::drawAim(sf::RenderWindow* window, float angle, const sf::Vector2f& mousePosition) const
-	{
+{
 	if(!m_objectile)
 	{
 		auto velocity = (mousePosition - getPosition());
@@ -66,7 +66,7 @@ void Weapon::drawAim(sf::RenderWindow* window, float angle, const sf::Vector2f& 
 		{
 			time += timeStep;
 			potentialPosition.x = initialPosition.x + velocityX * time;
-			potentialPosition.y = initialPosition.y + velocityY * time + 10.f * GRAVITY * time * time;
+			potentialPosition.y = initialPosition.y + velocityY * time + 5.f * GRAVITY * time * time;
 
 			auto c = sf::CircleShape(3);
 			c.setFillColor(sf::Color::Green);

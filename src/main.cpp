@@ -16,44 +16,7 @@
 
 int main() 
 {
-	//Controller controller;
-	//controller.run();
-
-	//sf::RenderWindow window(sf::VideoMode(800, 600), "Angry Birds");
-	//window.setFramerateLimit(60);
-
- //   auto player = std::make_shared<Player>(1, Vector2f{ 100, 550 });
-
- //   bool playerTurn = true;
-
- //   while (window.isOpen())
- //   {
- //       auto event = sf::Event{};
- //       while( window.pollEvent(event))
- //       {
- //           if (event.type == sf::Event::Closed)
- //               window.close();
-
- //       }
-
- //       window.clear();
-
- //       //update
- //       player->update();
- //       player->draw(&window);
-
- //       if (playerTurn)
- //       {
- //           player->play(&window, event);
- //           //playerTurn = false;
- //       }
- //       else if (player->isPlaying())
- //           player->play(&window, event);
-
- //       
-
- //       window.display();
- //   }
+	srand(time(NULL));
 	auto menu = MainMenu();
 	menu.menuLoop(WINDOW_SIZE);
 }

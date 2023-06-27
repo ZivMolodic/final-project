@@ -11,8 +11,8 @@ m_rotate(false), m_bounce(bounce), m_walking(false), m_gravity(true)
 void PhysicsBehavior::setVelocity(const Vector2f& velocity)
 {
     auto norma = std::sqrtf(norm(velocity));
-    if (norma > 40.f)
-        m_velocity = (velocity / norma) * 40.f;
+    if (norma > 70.f)
+        m_velocity = (velocity / norma) * 70.f;
     else
         m_velocity = velocity;
 }
@@ -24,7 +24,7 @@ void PhysicsBehavior::update(Shape* body)
         setVelocity({ getVelocity().x, getVelocity().y + GRAVITY * m_weight });
     //std::cout << "response: " << m_velocity.x << " , " << m_velocity.y << std::endl;
 
-    body->move(m_velocity * (m_timer.restart().asMilliseconds() * 0.08f));
+    body->move(m_velocity * (m_timer.restart().asMilliseconds() * 0.04f));
 
     if(m_rotate)
     {
@@ -156,19 +156,6 @@ sf::Vector2f RectanglePhysics::manageCollision(const sf::Vector2f& position, con
     if (auto response = AABBResponse(rectangle, rec); response != sf::Vector2f())
     {
         auto direction = getVelocity();
-        //static int stable = 0, check = 0;
-        //if (std::abs(getVelocity().y) < 2)
-        //{
-        //    stable++;
-        //    if (stable >= 5)
-        //    {
-        //        check++;
-        //        direction = { 0, 1 };
-        //    }
-        //    if (check >= 5)
-        //        stable = check = 0;
-        //}
-        
         
         if (isWalking())
         {
@@ -179,8 +166,7 @@ sf::Vector2f RectanglePhysics::manageCollision(const sf::Vector2f& position, con
         handleHit(response);
 
         direction /= std::sqrtf(norm(direction));
-        //std::cout << "response: " << response.x << " , " << response.y << std::endl;
-
+        
         while (AABBResponse(rectangle, rec) != sf::Vector2f())
             rectangle.move(- direction * 0.1f);
 
